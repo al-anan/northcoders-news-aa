@@ -23,7 +23,7 @@ exports.patchArticleById = (req, res, next) => {
     .catch(next);
 };
 
-exports.getArticle = (req, res, next) => {
+exports.getArticles = (req, res, next) => {
   fetchArticles()
     .then(() => {})
     .catch(next);
