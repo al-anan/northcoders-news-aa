@@ -46,5 +46,38 @@ describe("PATCH /api/articles/:article_id", () => {
 });
 
 describe("GET /api/articles", () => {
-  test("200, responds with array of article objects");
+  test("200, responds with array of article objects sorted by date, descending by default", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(Array.isArray(articles)).toBe(true);
+        expect(articles).toHaveLength(12);
+        expect(articles).toBeSortedBy("created_at", { descending: true });
+      });
+  });
+  test("200, accepts sort_by query; responds with array of article objects sorted by any valid column", () => {
+    return request(app)
+      .get("/api/articles?sort_by=author")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toBeSortedBy("author", { descending: true });
+      });
+  });
+  test("200, accepts order query; responds with array of article objects in ascending order", () => {
+    return request(app)
+      .get("/api/articles?order=asc")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toBeSorted({ descending: false });
+      });
+  });
+  test("200, accepts topic query; responds with array of article objects filtered by topic", () => {
+    return request(app)
+      .get("/api/articles?topic=cats")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toHaveLength(1);
+      });
+  });
 });
