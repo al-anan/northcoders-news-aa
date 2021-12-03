@@ -92,3 +92,17 @@ describe("GET /api/articles/:article_id/comments", () => {
       });
   });
 });
+
+describe("POST /api/articles/:article_id/comments", () => {
+  test("201, responds with posted comment", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({ username: "lurker", body: "Lovely new comment here :)" })
+      .expect(201)
+      .then(({ body: comment }) => {
+        expect(comment.comment_id).toEqual(19);
+        expect(comment.author).toEqual("lurker");
+        expect(comment.body).toEqual("Lovely new comment here :)");
+      });
+  });
+});
