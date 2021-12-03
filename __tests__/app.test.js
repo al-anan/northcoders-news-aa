@@ -106,3 +106,9 @@ describe("POST /api/articles/:article_id/comments", () => {
       });
   });
 });
+
+describe("DELETE /api/comments/:comment_id", () => {
+  test("204, responds with status 204 and no content", () => {
+    return request(app).delete("/api/comments/13").expect(204);
+  });
+});
