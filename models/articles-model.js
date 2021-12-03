@@ -20,7 +20,7 @@ exports.fetchArticleById = (id) => {
 exports.updateArticleById = (id, vote) => {
   return db
     .query(
-      `UPDATE articles
+      ` UPDATE articles
         SET votes = votes + $1
         WHERE article_id = $2
         RETURNING *;`,
@@ -68,9 +68,21 @@ exports.fetchArticles = (sort_by = "created_at", order = "desc", topic) => {
   GROUP BY a.article_id
   ORDER BY a.${sort_by} ${order};`;
 
-  console.log(queryStr, "<<<<<<<<<<", queryValues);
-
   return db.query(queryStr, queryValues).then(({ rows }) => {
     return rows;
   });
+};
+
+exports.fetchArticleComments = (id) => {
+  return db
+    .query(
+      ` SELECT c.comment_id, c.votes, c.created_at, c.author, c.body
+        FROM comments c
+        WHERE c.article_id = $1;`,
+      [id]
+    )
+    .then(({ rows }) => {
+      console.log({ rows });
+      return rows;
+    });
 };
