@@ -112,3 +112,14 @@ describe("DELETE /api/comments/:comment_id", () => {
     return request(app).delete("/api/comments/13").expect(204);
   });
 });
+
+describe("GET /api", () => {
+  test("200, responds with a JSON object describing all available endpoints", () => {
+    return request(app)
+      .get("/api")
+      .expect(200)
+      .then(({ body: endpoints }) => {
+        expect(typeof endpoints).toBe("object");
+      });
+  });
+});

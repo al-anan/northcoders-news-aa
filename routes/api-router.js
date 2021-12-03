@@ -2,10 +2,9 @@ const apiRouter = require("express").Router();
 const articlesRouter = require("./articles-router.js");
 const commentsRouter = require("./comments-router.js");
 const topicsRouter = require("./topics-router.js");
+const { getAPIs } = require("../controllers/api-controller.js");
 
-apiRouter.get("/", (req, res, next) => {
-  res.status(200).send("API Router working here...");
-});
+apiRouter.get("/", getAPIs);
 
 apiRouter.use("/articles", articlesRouter);
 apiRouter.use("/comments", commentsRouter);
