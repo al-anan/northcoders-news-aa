@@ -8,7 +8,7 @@
     "dev": "nodemon listen.js",
     "setup-dbs": "psql -f ./db/setup.sql",
     "seed": "node ./db/seeds/run-seed.js",
-    "seed-prod": "SET NODE_ENV=production DATABASE_URL=$(heroku config:get DATABASE_URL) npm run seed",
+    "seed-prod": "cross-env NODE_ENV=production DATABASE_URL=postgres://lesctluevsrudr:22d876b6731dd304de2ea189fc98af3843a57ddb5ae650c307f33aa927e7cb7d@ec2-174-129-225-160.compute-1.amazonaws.com:5432/d3boon9t49h4ft npm run seed",
     "test": "jest"
   },
   "repository": {
@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/northcoders/be-nc-news#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "heroku": "^7.59.2",
