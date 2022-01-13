@@ -10,7 +10,7 @@
     }
   },
   "GET /api/articles": {
-    "description": "serves an array of all topics",
+    "description": "serves an array of all articles",
     "queries": ["author", "topic", "sort_by", "order"],
     "exampleResponse": {
       "articles": [
@@ -72,6 +72,28 @@
           "body": "Replacing the quiet elegance of the dark suit and tie with the casual indifference of these muted earth tones is a form of fashion suicide, but, uh, call me crazy — onyou it works."
         }
       ]
+    }
+  },
+  "POST /api/articles/:article_id/comments": {
+    "description": "serves the posted comment",
+    "queries": [],
+    "requestBody": { "username": "username", "body": "commentBody" },
+    "exampleResponse": {
+      "comment": {
+        "comment_id": 5,
+        "votes": 0,
+        "created_at": "2020-10-31T03:03:00.000Z",
+        "author": "authorUsername",
+        "body": "The new comment body."
+      }
+    }
+  },
+  "DELETE /api/comments/:comment_id": {
+    "description": "deletes the given comment by comment_id",
+    "queries": [],
+    "requestBody": {},
+    "exampleResponse": {
+      "status": 204
     }
   }
 }
