@@ -86,7 +86,7 @@ exports.fetchArticleComments = (id) => {
     });
 };
 
-exports.writeComment = (id, { username, body }) => {
+exports.writeComment = (id, username, body) => {
   let queryStr = `
     INSERT INTO comments (author, body, article_id)
     VALUES ($1, $2, $3)
